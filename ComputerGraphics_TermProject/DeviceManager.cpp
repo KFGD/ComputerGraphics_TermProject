@@ -37,6 +37,17 @@ void CDeviceManager::UninitializeDirect3D()
 		d3dDevice->Release();
 }
 
+bool CDeviceManager::CreateVertexShader(const void * pShaderBytecode, SIZE_T BytecodeLength, ID3D11ClassLinkage * pClassLinkage, ID3D11VertexShader ** ppVertexShader)
+{
+	return FAILED(d3dDevice->CreateVertexShader(pShaderBytecode, BytecodeLength, pClassLinkage, ppVertexShader));
+}
+
+bool CDeviceManager::CreatePixelShader(const void * pShaderBytecode, SIZE_T BytecodeLength, ID3D11ClassLinkage * pClassLinkage, ID3D11PixelShader ** ppPixelShader)
+{
+	return FAILED(d3dDevice->CreatePixelShader(pShaderBytecode, BytecodeLength, pClassLinkage, ppPixelShader));
+}
+
+
 CDeviceManager::CDeviceManager()
 {
 }

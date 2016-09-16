@@ -7,6 +7,7 @@ public:
 private:
 	void UpdateSceneElements();
 	void RenderScene();
+
 private:
 	CSceneManager();
 public:

@@ -8,6 +8,8 @@ public:
 	static CDeviceManager* CreateDeviceManager(HWND hWnd);
 	bool InitializeDirect3D(HWND hWnd);
 	void UninitializeDirect3D();
+	bool CreateVertexShader(const void* pShaderBytecode, SIZE_T BytecodeLength, ID3D11ClassLinkage* pClassLinkage, ID3D11VertexShader **ppVertexShader);
+	bool CreatePixelShader(const void* pShaderBytecode, SIZE_T BytecodeLength, ID3D11ClassLinkage* pClassLinkage, ID3D11PixelShader **ppPixelShader);
 
 private:
 	//InitializeDirect3D

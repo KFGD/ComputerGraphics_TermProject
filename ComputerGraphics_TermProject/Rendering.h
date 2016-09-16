@@ -4,6 +4,15 @@
 class CRendering : public IUpdate
 {
 public:
+	void SetVertexShaderDataFromFile(const char* fileName);
+	void SetPixelShaderDataFromFile(const char* fileName);
+private:
+	void* vertexShaderData = nullptr;
+	int vertexShaderLength;
+	void* pixelShaderData = nullptr;
+	int pixelShaderLength;
+
+public:
 	CRendering();
 	~CRendering();
 
