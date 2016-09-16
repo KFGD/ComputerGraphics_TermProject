@@ -28,6 +28,12 @@
     <Filter Include="소스 파일\Shader">
       <UniqueIdentifier>{78b7c39c-69c8-4137-befd-eaa523c660a9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Framework">
+      <UniqueIdentifier>{094148bb-fe5b-4725-881f-059ca55592fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Framework">
+      <UniqueIdentifier>{35d70478-b551-4127-80b4-e77d468213cb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Transform.cpp">
@@ -51,8 +57,14 @@
     <ClCompile Include="Main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="DeviceManager.cpp">
+      <Filter>소스 파일\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>소스 파일\Framework</Filter>
+    </ClCompile>
     <ClCompile Include="GameManager.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Framework</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -74,8 +86,14 @@
     <ClInclude Include="Rendering.h">
       <Filter>헤더 파일\Component</Filter>
     </ClInclude>
+    <ClInclude Include="DeviceManager.h">
+      <Filter>헤더 파일\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>헤더 파일\Framework</Filter>
+    </ClInclude>
     <ClInclude Include="GameManager.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\Framework</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

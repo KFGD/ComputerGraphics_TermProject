@@ -2,19 +2,20 @@
 #include <Windows.h>
 #include <d3d11.h>
 #include <dxgi.h>
-#include <cstdio>
+#include "Utility.h"
+//#include <cstdio>
 //////////////////////////////////////////////////////////////////
 
-//fileName의 이름에 맞는 파일을 열고 length에 파일 속 문자의 길이를 할당하고 buffer에 length만큼 메모리를 할당한 후, buffer에 fileName의 내용을 복사
-void ReadData(const char* fileName, void** buffer, int* length) {
-	FILE* fp = fopen(fileName, "rb");
-	fseek(fp, 0, SEEK_END);	//파일을 쓰기/읽기 위한 커서의 위치를 파일의 끝으로 이동
-	*length = ftell(fp);	//현재 커서의 위치를 반환(파일의 문자 길이)
-	fseek(fp, 0, SEEK_SET);	//파일을 쓰기/읽기 위한 커서의 위치를 파일의 맨앞으로 이동
-	*buffer = new char[*length];
-	fread(*buffer, *length, 1, fp);
-	fclose(fp);
-}
+////fileName의 이름에 맞는 파일을 열고 length에 파일 속 문자의 길이를 할당하고 buffer에 length만큼 메모리를 할당한 후, buffer에 fileName의 내용을 복사
+//void ReadData(const char* fileName, void** buffer, int* length) {
+//	FILE* fp = fopen(fileName, "rb");
+//	fseek(fp, 0, SEEK_END);	//파일을 쓰기/읽기 위한 커서의 위치를 파일의 끝으로 이동
+//	*length = ftell(fp);	//현재 커서의 위치를 반환(파일의 문자 길이)
+//	fseek(fp, 0, SEEK_SET);	//파일을 쓰기/읽기 위한 커서의 위치를 파일의 맨앞으로 이동
+//	*buffer = new char[*length];
+//	fread(*buffer, *length, 1, fp);
+//	fclose(fp);
+//}
 
 // TODO: Global Variables for Direct3D
 ID3D11Device* d3dDevice;				//하드웨어의 기능 지원 점검과 자원 할당에 사용되는 인터페이스
@@ -46,14 +47,13 @@ bool InitializeDirect3D(HWND hWnd)
 	swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;						//사슬 교환 효과를 서술하는 구조체(DXGI_SWAP_EFFECT_DISCARD로 설정하면 디스플레이 구동기가 제시하는 가장 효율적인 방법을 설택)
 	swapChainDesc.Windowed = true;												//창모드를 원하면 true, 전체화면을 원하면 false
 
-																				//Direct3D 장치와 교환 사슬을 생성
+	//Direct3D 장치와 교환 사슬을 생성
 	if (FAILED(D3D11CreateDeviceAndSwapChain(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, 0,
 		nullptr, 0, D3D11_SDK_VERSION, &swapChainDesc, &dxgiSwapChain, &d3dDevice,
 		nullptr, &immediateContext)))
 		return false;
 
 	//어떤 용도이든 Direct3D에서 텍스처를 사용하려면 텍스처의 초기화 시점에서 그 텍스처의 자원뷰를 생성해야 한다.
-
 	ID3D11Resource* backBuffer;
 	//SwapChanin으로부터 Back-Buffer의 포인터 획득(1: 후면 버퍼의 색인, 2: 버퍼의 인터페이스 형식을 지정, 3: 후면 버퍼를 가리키는 포인터)
 	dxgiSwapChain->GetBuffer(0, __uuidof(ID3D11Resource), (void**)&backBuffer);
