@@ -1,11 +1,20 @@
+//#pragma once
 #include <Windows.h>
 #include <d3d11.h>
 #include <dxgi.h>
 #include <cstdio>
-
-#include "GameObject.h"
-#include "Physics.h"
 //////////////////////////////////////////////////////////////////
+
+//fileName의 이름에 맞는 파일을 열고 length에 파일 속 문자의 길이를 할당하고 buffer에 length만큼 메모리를 할당한 후, buffer에 fileName의 내용을 복사
+void ReadData(const char* fileName, void** buffer, int* length) {
+	FILE* fp = fopen(fileName, "rb");
+	fseek(fp, 0, SEEK_END);	//파일을 쓰기/읽기 위한 커서의 위치를 파일의 끝으로 이동
+	*length = ftell(fp);	//현재 커서의 위치를 반환(파일의 문자 길이)
+	fseek(fp, 0, SEEK_SET);	//파일을 쓰기/읽기 위한 커서의 위치를 파일의 맨앞으로 이동
+	*buffer = new char[*length];
+	fread(*buffer, *length, 1, fp);
+	fclose(fp);
+}
 
 // TODO: Global Variables for Direct3D
 ID3D11Device* d3dDevice;				//하드웨어의 기능 지원 점검과 자원 할당에 사용되는 인터페이스
@@ -22,17 +31,6 @@ ID3D11Buffer* vertexBuffer;
 
 
 struct MyVertex { float x, y, z; };
-
-//fileName의 이름에 맞는 파일을 열고 length에 파일 속 문자의 길이를 할당하고 buffer에 length만큼 메모리를 할당한 후, buffer에 fileName의 내용을 복사
-void ReadData(const char* fileName, void** buffer, int* length) {
-	FILE* fp = fopen(fileName, "rb");
-	fseek(fp, 0, SEEK_END);	//파일을 쓰기/읽기 위한 커서의 위치를 파일의 끝으로 이동
-	*length = ftell(fp);	//현재 커서의 위치를 반환(파일의 문자 길이)
-	fseek(fp, 0, SEEK_SET);	//파일을 쓰기/읽기 위한 커서의 위치를 파일의 맨앞으로 이동
-	*buffer = new char[*length];
-	fread(*buffer, *length, 1, fp);
-	fclose(fp);
-}
 
 //Direct3D 장치 생성
 bool InitializeDirect3D(HWND hWnd)
@@ -106,11 +104,6 @@ bool InitializeDirect3D(HWND hWnd)
 		{ +0.5f, -0.5f, +0.0f }
 	};
 
-	CGameObject obj;
-	CPhysics* one = new CPhysics;
-	obj.AddComponent(one);
-	CPhysics* two = obj.GetComponent<CPhysics>();
-	delete one;
 
 	//Buffer Resource의 특성을 기술한 구조체
 	D3D11_BUFFER_DESC vertexBufferDesc = { sizeof(vertices), D3D11_USAGE_DEFAULT, D3D11_BIND_VERTEX_BUFFER, 0, 0, 0 };//(1: Buffer size with bytes, 2: D3D11_USAGE, 3: 파이프라인에 바인딩되는 방식)

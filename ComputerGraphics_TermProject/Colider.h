@@ -1,10 +1,10 @@
-#pragma once
+ï»¿#pragma once
 #include "Utility.h"
 
 class CColider : public IUpdate
 {
 public:
-	// IUpdateÀ»(¸¦) ÅëÇØ »ó¼ÓµÊ
+	// IUpdateì„(ë¥¼) í†µí•´ ìƒì†ë¨
 	virtual void Update() override;
 	void OnTriggerEnter(CColider& colider);
 	void OnTriggerExit(CColider& colider);

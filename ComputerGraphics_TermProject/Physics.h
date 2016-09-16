@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Utility.h"
 
 class CPhysics : public IUpdate
@@ -7,7 +7,7 @@ public:
 	CPhysics();
 	~CPhysics();
 
-	// IUpdateÀ»(¸¦) ÅëÇØ »ó¼ÓµÊ
+	// IUpdateì„(ë¥¼) í†µí•´ ìƒì†ë¨
 	virtual void Update() override;
 };
 
