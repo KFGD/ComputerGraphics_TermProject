@@ -1,16 +1,16 @@
 #pragma once
-#include "DeviceManager.h"
-#include "SceneManager.h"
+#include "BaseDeviceManager.h"
+#include "BaseSceneManager.h"
 
 class CGameManager
 {
 public:
-	static CGameManager* CreateGameManager(HWND hWnd);
+	static CGameManager* CreateGameManager(HWND hWnd, CBaseDeviceManager* deviceManager, CBaseSceneManager* sceneManager);
 private:
-	bool InitializeGameManager(HWND hWnd);
+	void GameLoop();
 private:
-	CDeviceManager* deviceManager;
-	CSceneManager* sceneManager;
+	CBaseDeviceManager* deviceManager;
+	CBaseSceneManager* sceneManager;
 private:
 	CGameManager();
 public:

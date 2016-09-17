@@ -57,14 +57,20 @@
     <ClCompile Include="Main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="DeviceManager.cpp">
-      <Filter>소스 파일\Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>소스 파일\Framework</Filter>
-    </ClCompile>
     <ClCompile Include="GameManager.cpp">
       <Filter>소스 파일\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseDeviceManager.cpp">
+      <Filter>소스 파일\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseSceneManager.cpp">
+      <Filter>소스 파일\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="DeviceManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -86,14 +92,20 @@
     <ClInclude Include="Rendering.h">
       <Filter>헤더 파일\Component</Filter>
     </ClInclude>
-    <ClInclude Include="DeviceManager.h">
-      <Filter>헤더 파일\Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>헤더 파일\Framework</Filter>
-    </ClInclude>
     <ClInclude Include="GameManager.h">
       <Filter>헤더 파일\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseDeviceManager.h">
+      <Filter>헤더 파일\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseSceneManager.h">
+      <Filter>헤더 파일\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="DeviceManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

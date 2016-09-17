@@ -1,26 +1,41 @@
 #include "Rendering.h"
 
 
-
-void CRendering::SetVertexShaderDataFromFile(const char * fileName)
+void CRendering::Update(ID3D11DeviceContext * immediateContext, ID3D11Buffer* bindingBuffer)
 {
-	ReadData(fileName, (void**)&this->vertexShaderData, &this->vertexShaderLength);
+	immediateContext->VSSetShader(vertexShader, nullptr, 0);
+	immediateContext->PSSetShader(pixelShader, nullptr, 0);
+
+	immediateContext->IASetPrimitiveTopology(primitiveTopology);
+	immediateContext->IASetInputLayout(inputLayout);
+	UINT stride = sizeof(Vector3), offset = 0;
+	immediateContext->IASetVertexBuffers(0, 1, &bindingBuffer, &stride, &offset);
+
+	immediateContext->Draw(sizeof(vertices) / sizeof(Vector3), 0);
 }
 
-void CRendering::SetPixelShaderDataFromFile(const char * fileName)
+void CRendering::SetInputLayout(ID3D11InputLayout * inputLayout)
 {
-	ReadData(fileName, (void**)&this->pixelShaderData, &this-> pixelShaderLength);
+	this->inputLayout = inputLayout;
 }
 
-CRendering::CRendering()
+void CRendering::SetVertexShader(ID3D11VertexShader * vertexShader)
 {
+	this->vertexShader = vertexShader;
+}
+
+void CRendering::SetPixelShader(ID3D11PixelShader * pixelShader)
+{
+	this->pixelShader = pixelShader;
+}
+
+CRendering::CRendering(Vector3& vertices, D3D_PRIMITIVE_TOPOLOGY primitiveTopology)
+{
+	this->vertices = &vertices;
+	this->primitiveTopology = primitiveTopology;
 }
 
 
 CRendering::~CRendering()
-{
-}
-
-void CRendering::Update()
 {
 }
