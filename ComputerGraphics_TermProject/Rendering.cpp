@@ -1,7 +1,7 @@
 #include "Rendering.h"
 
 
-void CRendering::Update(ID3D11DeviceContext * immediateContext, ID3D11Buffer* bindingBuffer)
+void CRendering::Update(ID3D11DeviceContext * immediateContext)
 {
 	immediateContext->VSSetShader(vertexShader, nullptr, 0);
 	immediateContext->PSSetShader(pixelShader, nullptr, 0);
@@ -29,13 +29,33 @@ void CRendering::SetPixelShader(ID3D11PixelShader * pixelShader)
 	this->pixelShader = pixelShader;
 }
 
-CRendering::CRendering(Vector3& vertices, D3D_PRIMITIVE_TOPOLOGY primitiveTopology)
+void CRendering::SetBindingBuffer(ID3D11Buffer * bindingBuffer)
 {
-	this->vertices = &vertices;
-	this->primitiveTopology = primitiveTopology;
+	this->bindingBuffer = bindingBuffer;
+}
+
+int CRendering::GetVerticesNum()
+{
+	return sizeof(vertices)/sizeof(Vector3);
+}
+
+Vector3 * CRendering::GetVertices()
+{
+	return &vertices;
+}
+
+CRendering::CRendering(Vector3& vertices, D3D_PRIMITIVE_TOPOLOGY primitiveTopology) : vertices(vertices), primitiveTopology(primitiveTopology)
+{
+
 }
 
 
 CRendering::~CRendering()
 {
+	if (nullptr != inputLayout)
+		inputLayout->Release();
+	if (nullptr != vertexShader)
+		vertexShader->Release();
+	if (nullptr != pixelShader)
+		pixelShader->Release();
 }

@@ -1,19 +1,21 @@
 #pragma once
-#include "GameObject.h"
-#include <vector>
+#include "Scene.h"
+
 class CBaseSceneManager
 {
 public:
-	virtual void ReadyRendering();
-	virtual void UpdateSceneElements(ID3D11DeviceContext* immediateContext) = 0;
-	virtual void RenderSceneElements(ID3D11DeviceContext* immediateContext, IDXGISwapChain* dxgiSwapChain) = 0;
+	void SetUpScene(ID3D11DeviceContext* immediateContext, IDXGISwapChain* dxgiSwapChain, ID3D11RenderTargetView* renderTargerView);
+	void StartScene();
+	void UpdateScene();
+	void AddScene(CScene* scene);
+	void SelectScene(int index);
 	
-protected:
-	std::vector<CGameObject*> objectList;
-
-
+private:
+	std::vector<CScene*> sceneList;
+	CScene* currentScene;
+	
 public:
 	CBaseSceneManager();
-	virtual ~CBaseSceneManager();
+	~CBaseSceneManager();
 };
 

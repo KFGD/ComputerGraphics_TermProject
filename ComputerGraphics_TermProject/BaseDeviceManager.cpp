@@ -1,25 +1,11 @@
 ﻿#include "BaseDeviceManager.h"
 
 
-
-//CDeviceManager* CDeviceManager::CreateDeviceManager(HWND hWnd)
-//{
-	//CDeviceManager* deviceManager = new CDeviceManager();
-	//bool bReturn = deviceManager->InitializeDirect3D(hWnd);
-	//if (bReturn)
-	//	return deviceManager;
-	//else {
-	//	deviceManager->UninitializeDirect3D();
-	//	delete deviceManager;
-	//	return nullptr;
-	//}
-//}
-
 bool CBaseDeviceManager::InitializeDirect3D(HWND hWnd)
 {
-	if(!CreateDeviceAndSwapChain(hWnd))
+	if(CreateDeviceAndSwapChain(hWnd))
 		return false;
-	if (!CreateRenderTargetView())
+	if (CreateRenderTargetView())
 		return false;
 
 	return true;
@@ -36,65 +22,6 @@ void CBaseDeviceManager::UninitializeDirect3D()
 	if (nullptr != d3dDevice)
 		d3dDevice->Release();
 }
-
-bool CBaseDeviceManager::CreateVertexShader(const void * pShaderBytecode, SIZE_T BytecodeLength, ID3D11ClassLinkage * pClassLinkage, ID3D11VertexShader ** ppVertexShader)
-{
-	return FAILED(d3dDevice->CreateVertexShader(pShaderBytecode, BytecodeLength, pClassLinkage, ppVertexShader));
-}
-
-bool CBaseDeviceManager::CreatePixelShader(const void * pShaderBytecode, SIZE_T BytecodeLength, ID3D11ClassLinkage * pClassLinkage, ID3D11PixelShader ** ppPixelShader)
-{
-	return FAILED(d3dDevice->CreatePixelShader(pShaderBytecode, BytecodeLength, pClassLinkage, ppPixelShader));
-}
-
-bool CBaseDeviceManager::CreateInputLayout(const D3D11_INPUT_ELEMENT_DESC * pInputElementDescs, UINT NumElements, const void * pShaderBytecodeWithInputSignature, SIZE_T BytecodeLength, ID3D11InputLayout ** ppInputLayout)
-{
-	return FAILED(this->d3dDevice->CreateInputLayout(pInputElementDescs, NumElements, pShaderBytecodeWithInputSignature, BytecodeLength, ppInputLayout));
-}
-
-bool CBaseDeviceManager::CreateVertexShaderFromCSOFile(const char * fileName, CRendering* rendering)
-{
-	//Part: Read Data
-	void* vertexShaderData;
-	int vertexShaderLength;
-	ReadData(fileName, (void**)&vertexShaderData, &vertexShaderLength);
-
-	//Part: Create VertexShader
-	ID3D11VertexShader* vertexShader;
-	//vertexShaderData안에 저장된 컴파일된 Shader정보를 기반으로 VertexShader를 생성
-	d3dDevice->CreateVertexShader(vertexShaderData, vertexShaderLength, nullptr, &vertexShader);
-	rendering->SetVertexShader(vertexShader);
-
-	//Part: CreateInputLayout
-	ID3D11InputLayout* inputLayout;
-	//Vertex의 특성(ex.사용용도)을 담은 구조체
-	D3D11_INPUT_ELEMENT_DESC inputEelementDescs[] = {
-		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-	};//이 Vertex들은 POSITION으로 사용되며 DXGI_FORMAT_R32G32B32_FLOAT이라는 DXGI_FORMAT형식이며 각 Vertex의 Data이다
-	d3dDevice->CreateInputLayout(inputEelementDescs, _countof(inputEelementDescs), vertexShaderData, vertexShaderLength, &inputLayout);
-	rendering->SetInputLayout(inputLayout);
-	delete[] vertexShaderData;
-
-	return true;
-}
-
-bool CBaseDeviceManager::CreatePixelShaderFromCSOFile(const char * fileName, CRendering* rendering)
-{
-	//Part: Read Data
-	void* pixelShaderData;
-	int pixelShaderLength;
-	ReadData(fileName, (void**)&pixelShaderData, &pixelShaderLength);
-
-	//Part: Create PixelShader
-	ID3D11PixelShader* pixelShader;
-	//pixelShaderData안에 저장된 컴파일된 Shader정보를 기반으로 PixelShader를 생성
-	d3dDevice->CreatePixelShader(pixelShaderData, pixelShaderLength, nullptr, &pixelShader);
-	rendering->SetPixelShader(pixelShader);
-	delete[] pixelShaderData;
-
-	return true;
-}
-
 
 CBaseDeviceManager::CBaseDeviceManager()
 {

@@ -7,14 +7,14 @@
 class CGameObject
 {
 public:
-	virtual void PhysicsUpdate();
-	virtual void RenderingUpdate(ID3D11DeviceContext* immediateContext, ID3D11Buffer* bindingBuffer);
+	void PhysicsUpdate();
+	void RenderingUpdate(ID3D11DeviceContext* immediateContext);
 
 public:
 	void AddComponent(CColider* colider);
 	void AddComponent(CRendering* rendering);
 	void AddComponent(CPhysics* physics);
-	
+
 	template <typename T> T* GetComponent();
 	template <> CTransform* GetComponent<CTransform>();
 	template <> CColider* GetComponent<CColider>();
@@ -25,6 +25,8 @@ public:
 	template <> void RemoveComponent<CColider>();
 	template <> void RemoveComponent<CRendering>();
 	template <> void RemoveComponent<CPhysics>();
+
+private:
 
 private:
 	CTransform transform;

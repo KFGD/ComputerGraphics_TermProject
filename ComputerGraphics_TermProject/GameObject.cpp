@@ -23,10 +23,10 @@ void CGameObject::PhysicsUpdate()
 		colider->Update();
 }
 
-void CGameObject::RenderingUpdate(ID3D11DeviceContext* immediateContext, ID3D11Buffer* bindingBuffer)
+void CGameObject::RenderingUpdate(ID3D11DeviceContext* immediateContext)
 {
 	if (rendering != nullptr)
-		rendering->Update(immediateContext, bindingBuffer);
+		rendering->Update(immediateContext);
 }
 
 void CGameObject::AddComponent(CColider * colider)
